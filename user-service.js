@@ -23,7 +23,9 @@ module.exports.connect = function () {
         let db = mongoose.createConnection(mongoDBConnectionString, {  
             sslKey: credentials,
             sslCert: credentials,
-            serverApi: ServerApiVersion.v1 });
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+         });
 
         db.on('error', err => {
             reject(err);
