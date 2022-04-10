@@ -47,3 +47,7 @@ app.put('/api/user/favourites/:id', passport.authenticate('jwt', {session: false
 app.delete('/api/user/favourites/:id', passport.authenticate('jwt', {session: false}), (req, res)=>{
     userService.removeFavourite(req.user._id, req.params.id).then(result => res.send(result)).catch(error => res.send(error));
 });
+
+app.get('/', (req, res)=>{
+    res.sendFile({message: "Hey!"});
+});
