@@ -21,8 +21,10 @@ let User;
 module.exports.connect = function () {
     return new Promise(function (resolve, reject) {
         let db = mongoose.createConnection(mongoDBConnectionString, {  
-            sslKey: credentials,
-            sslCert: credentials
+            useNewUrlParser: true,
+            useUnifiedTopology: true,
+            sslKey: certificate,
+            sslCert: certificate 
          });
 
         db.on('error', err => {
