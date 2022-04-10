@@ -3,7 +3,6 @@ mongoose.set('useFindAndModify', false); //https://mongoosejs.com/docs/deprecati
 const bcrypt = require('bcryptjs');
 
 let mongoDBConnectionString = process.env.MONGO_URL;
-const credentials = './X509-cert-4082462911005145335.pem';
 
 let Schema = mongoose.Schema;
 
@@ -20,11 +19,7 @@ let User;
 
 module.exports.connect = function () {
     return new Promise(function (resolve, reject) {
-        let db = mongoose.createConnection(mongoDBConnectionString, { 
-            useUnifiedTopology: true,
-            sslKey: credentials,
-            sslCert: credentials 
-         });
+        let db = mongoose.createConnection(mongoDBConnectionString, { useUnifiedTopology: true });
 
         db.on('error', err => {
             reject(err);
