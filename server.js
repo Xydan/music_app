@@ -19,7 +19,7 @@ app.use(cors());
 /* TODO Add Your Routes Here */
 
 app.post('/api/user/register', (req, res)=>{ 
-    userService.registerUser(req.body).then(result => res.send(result)).catch(error => res.send(error));
+    userService.registerUser(req.body).then(result => res.send({message: result})).catch(error => res.send(error));
 });
 
 app.post('/api/user/login', (req, res)=>{ 
