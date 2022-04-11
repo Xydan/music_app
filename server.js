@@ -16,6 +16,27 @@ const HTTP_PORT = process.env.PORT || 8080;
 app.use(express.json());
 app.use(cors());
 
+var ExtractJwt = passportJWT.ExtractJwt;
+var JwtStrategy = passportJWT.Strategy;
+
+var jwtOptions = {};
+jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme("jwt");
+jwtOptions.secretOrKey = process.env.JWT_SECRET;
+
+var strategy = new JwtStrategy(jwtOptions, function (jwt_payload, next) {
+    console.log('payload received', jwt_payload);
+
+    if (jwt_payload) {
+        next(null, { _id: jwt_payload._id, 
+            userName: jwt_payload.userName}); 
+    } else {
+        next(null, false);
+    }
+});
+
+passport.use(strategy);
+app.use(passport.initialize());
+
 /* TODO Add Your Routes Here */
 
 app.post('/api/user/register', (req, res)=>{ 
